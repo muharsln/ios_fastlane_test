@@ -18,7 +18,18 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # 3. Ruby ve Fastlane kurulumu
+      # 3. Gradle Wrapper'ı yeniden oluştur
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+
+      # 4. Gradle Wrapper'ı kur
+      - name: Generate Gradle Wrapper
+        working-directory: android
+        run: |
+          gradle wrapper
+          chmod +x ./gradlew
+
+      # 5. Ruby ve Fastlane kurulumu
       - name: Setup Ruby
         uses: ruby/setup-ruby@v1
         with:
@@ -27,17 +38,12 @@ jobs:
       - name: Install Fastlane
         run: gem install fastlane
 
-      # 4. Gradle wrapper'a izin ver
-      - name: Grant execute permission for gradlew
-        run: chmod +x ./gradlew
-        working-directory: android
-
-      # 5. Debug APK oluştur
+      # 6. Debug APK oluştur
       - name: Build Debug APK
         run: fastlane build_debug
         working-directory: android
 
-      # 6. Debug APK dosyasını Artifact olarak yükle
+      # 7. Debug APK dosyasını Artifact olarak yükle
       - name: Upload Debug APK
         uses: actions/upload-artifact@v3
         with:
