@@ -1,14 +1,11 @@
 name: Android Debug Build
-
 on:
   push:
     branches:
       - main
-
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       # 1. Repo'yu clone et
       - name: Checkout repository
@@ -30,12 +27,17 @@ jobs:
       - name: Install Fastlane
         run: gem install fastlane
 
-      # 4. Debug APK oluştur
+      # 4. Gradle wrapper'a izin ver
+      - name: Grant execute permission for gradlew
+        run: chmod +x ./gradlew
+        working-directory: android
+
+      # 5. Debug APK oluştur
       - name: Build Debug APK
         run: fastlane build_debug
         working-directory: android
 
-      # 5. Debug APK dosyasını Artifact olarak yükle
+      # 6. Debug APK dosyasını Artifact olarak yükle
       - name: Upload Debug APK
         uses: actions/upload-artifact@v3
         with:
