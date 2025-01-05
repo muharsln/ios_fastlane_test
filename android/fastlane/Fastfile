@@ -1,9 +1,28 @@
+default_platform(:android)
+
 platform :android do
-    desc "Build debug APK"
-    lane :build_debug do
-      gradle(
-        task: "assemble",
-        build_type: "Debug" # Debug build için
-      )
-    end
+  desc "Build debug APK"
+  lane :build_debug do
+    gradle(
+      task: "assemble",
+      build_type: "Debug" # Debug build için
+    )
+  end
+
+  # desc "Runs all the tests"
+  # lane :test do
+  #   gradle(task: "test")
+  # end
+
+  # desc "Submit a new Beta Build to Crashlytics Beta"
+  # lane :beta do
+  #   gradle(task: "clean assembleRelease")
+  #   crashlytics
+  # end
+
+  # desc "Deploy a new version to the Google Play"
+  # lane :deploy do
+  #   gradle(task: "clean assembleRelease")
+  #   upload_to_play_store
+  # end
 end
