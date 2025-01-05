@@ -18,14 +18,15 @@ jobs:
           java-version: '11'
           distribution: 'temurin'
 
-      # 3. Gradle Wrapper'ı yeniden oluştur
-      - name: Validate Gradle wrapper
-        uses: gradle/wrapper-validation-action@v1
+      # 3. Gradle kurulumu ve wrapper oluşturma
+      - name: Setup Gradle
+        uses: gradle/gradle-build-action@v2
 
-      # 4. Gradle Wrapper'ı kur
-      - name: Generate Gradle Wrapper
+      # 4. Gradle wrapper dosyalarını oluştur
+      - name: Generate Gradle Wrapper files
         working-directory: android
         run: |
+          gradle init
           gradle wrapper
           chmod +x ./gradlew
 
