@@ -1,0 +1,10 @@
+platform :ios do
+    desc "Build IPA for Flutter iOS app"
+    lane :build_ipa do
+      build_app(
+        workspace: "Runner.xcworkspace",
+        scheme: "Runner",
+        export_method: "app-store" # app-store, ad-hoc veya development seçilebilir
+      )
+    end
+  end

@@ -1,0 +1,9 @@
+platform :android do
+    desc "Build debug APK"
+    lane :build_debug do
+      gradle(
+        task: "assemble",
+        build_type: "Debug" # Debug build için
+      )
+    end
+end
